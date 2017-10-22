@@ -49,6 +49,7 @@ SET(EXECUTABLES_LIST
 	RemoveWater
 	ResidueChecker
 	RMSDCalculator
+	SASDCalculator
 	ScoreAnalyzer
 	SeparateMolecules
 	SideChainGridBuilder
