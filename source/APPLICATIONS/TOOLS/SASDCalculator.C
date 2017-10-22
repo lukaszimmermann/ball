@@ -27,13 +27,31 @@ int main(int argc, char* argv[])
 
   GenericMolFile* input = MolFileFactory::open(parpars.get(param_in));
 
-  int num_mol = 0;
-  for (Molecule* mol = input->read(); mol; delete mol, mol = input->read())
-  {
-	  mol->atp
+  // We only consider the first molecule in the file
+  // TODO Warning if more molecules are detected
+  Molecule* mol = input->read();
 
+  // Determine dimensions of the grid with the minimal and maximal spatial coordinates
+  double double_max(std::numeric_limits<double>::max());
+  double min_x(double_max);
+  double min_y(double_max)
+  double min_z(double_max);
+
+  for (AtomConstIterator it = mol->beginAtom(); +it; it++)
+  {
+	  // We explicitly ignore hydrogen here
+	  if (it->getElement().getSymbol() != "H")
+  	  {
+		 TVector3<double> vec(it->getPosition());
+		 cout << "x: " << vec.x << endl;
+		 cout << "y: " << vec.y << endl;
+		 cout << "z: " << vec.z << endl;
+  	  }
   }
 
+
+
+  delete mol;
   delete input;
   return 0;
 }
