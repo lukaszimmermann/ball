@@ -5,10 +5,8 @@
 #include <BALL/FORMAT/PDBFile.h>
 #include <BALL/KERNEL/molecule.h>
 #include <BALL/FORMAT/molFileFactory.h>
-#include <BALL/KERNEL/PTE.h>
-#include <BALL/DOCKING/COMMON/flexibleMolecule.h>
-
 #include <BALL/FORMAT/commandlineParser.h>
+#include <BALL/STRUCTURE/surfaceProcessor.h>
 #include "version.h"
 
 using namespace BALL;
@@ -31,23 +29,8 @@ int main(int argc, char* argv[])
   // TODO Warning if more molecules are detected
   Molecule* mol = input->read();
 
-  // Determine dimensions of the grid with the minimal and maximal spatial coordinates
-  double double_max(std::numeric_limits<double>::max());
-  double min_x(double_max);
-  double min_y(double_max)
-  double min_z(double_max);
-
-  for (AtomConstIterator it = mol->beginAtom(); +it; it++)
-  {
-	  // We explicitly ignore hydrogen here
-	  if (it->getElement().getSymbol() != "H")
-  	  {
-		 TVector3<double> vec(it->getPosition());
-		 cout << "x: " << vec.x << endl;
-		 cout << "y: " << vec.y << endl;
-		 cout << "z: " << vec.z << endl;
-  	  }
-  }
+  // The SurfaceProcessor is needed to compute a surface representation of the molecule
+  SurfaceProcessor surface_processor;
 
 
 
